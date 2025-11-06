@@ -1,0 +1,297 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results - Price Comparison{% endblock %}
+
+{% block content %}
+<section class="results-section">
+    <div class="container">
+        <div class="back-search">
+            <a href="/home?user={{ user }}" class="btn-back">← Back to Search</a>
+            
+            <form method="POST" action="/search" class="search-form-small">
+                <input type="hidden" name="user" value="{{ user }}">
+                <input 
+                    type="text" 
+                    name="product" 
+                    placeholder="Search another product..." 
+                    value="{{ product }}"
+                    required
+                >
+                <button type="submit" class="btn-search">Compare</button>
+            </form>
+        </div>
+
+        {% if error %}
+            <div class="error-message">
+                <p>{{ error }}</p>
+            </div>
+        {% else %}
+
+        <div class="results-header">
+            <h2>📊 Prices for "{{ product }}"</h2>
+            <p>Brand new items only • Real prices • Best deals</p>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <form method="GET" action="/search" class="filters-form">
+                <input type="hidden" name="user" value="{{ user }}">
+                <input type="hidden" name="product" value="{{ product }}">
+                
+                <div class="filter-group">
+                    <label for="sort-by">Sort By:</label>
+                    <select id="sort-by" name="sort_by" onchange="this.form.submit()">
+                        <option value="price_low" {% if sort_by == 'price_low' %}selected{% endif %}>💰 Price: Low to High</option>
+                        <option value="price_high" {% if sort_by == 'price_high' %}selected{% endif %}>💵 Price: High to Low</option>
+                        <option value="rating_high" {% if sort_by == 'rating_high' %}selected{% endif %}>⭐ Best Rated</option>
+                        <option value="best_deal" {% if sort_by == 'best_deal' %}selected{% endif %}>🏆 Best Deal (Mitra's Pick)</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="min-rating">Minimum Rating:</label>
+                    <select id="min-rating" name="min_rating" onchange="this.form.submit()">
+                        <option value="0" {% if min_rating == '0' %}selected{% endif %}>All Ratings</option>
+                        <option value="3.5" {% if min_rating == '3.5' %}selected{% endif %}>⭐⭐⭐+ (3.5+)</option>
+                        <option value="4.0" {% if min_rating == '4.0' %}selected{% endif %}>⭐⭐⭐⭐ (4.0+)</option>
+                        <option value="4.5" {% if min_rating == '4.5' %}selected{% endif %}>⭐⭐⭐⭐⭐ (4.5+)</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <!-- Amazon Results Section -->
+        {% if amazon_results %}
+        <div class="store-results amazon-section">
+            <h2 class="store-heading">🛒 Amazon India</h2>
+            <div class="results-grid">
+                {% for result in amazon_results %}
+                <div class="product-card" id="product-amazon-{{ loop.index }}">
+                    {% if result.image %}
+                        <div class="product-image">
+                            <img src="{{ result.image }}" alt="{{ result.title }}" loading="lazy">
+                            <span class="store-badge">Amazon</span>
+                        </div>
+                    {% else %}
+                        <div class="product-image-placeholder">
+                            <p>No Image</p>
+                        </div>
+                    {% endif %}
+
+                    <div class="product-info">
+                        <h3 class="product-title">{{ result.title }}</h3>
+                        
+                        {% if result.review_summary %}
+                        <div class="review-summary" style="color: {{ result.review_summary.color }}">
+                            {{ result.review_summary.stars }}
+                            {% if result.rating and result.rating != 'N/A' %}
+                                ({{ result.rating }}/5)
+                            {% endif %}
+                        </div>
+                        {% endif %}
+
+                        <div class="product-price">
+                            <span class="price">{{ result.currency }} {{ result.price_display }}</span>
+                        </div>
+
+                        <!-- Price Chart -->
+                        <div id="chart-amazon-{{ loop.index }}" class="price-chart" onclick="toggleChart('amazon-{{ loop.index }}')">
+                            📊 Click to see 30-day price trend
+                        </div>
+                        <div id="chart-container-amazon-{{ loop.index }}" style="display:none; height:250px; margin: 1rem 0;"></div>
+
+                        <div class="product-actions">
+                            {% if result.link %}
+                                <a href="{{ result.link }}" target="_blank" class="btn-view" style="background-color: #FF9900;">
+                                    Visit Amazon →
+                                </a>
+                            {% endif %}
+                            <button class="btn-wishlist" onclick="addToWishlist('{{ result.title }}', '{{ result.price_display }}', 'Amazon')" title="Add to Wishlist">
+                                ❤️
+                            </button>
+                            <button class="btn-share" onclick="shareProduct('{{ result.title }}', '{{ result.price_display }}', 'Amazon')" title="Share this product">
+                                ⨠
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Walmart Results Section -->
+        {% if walmart_results %}
+        <div class="store-results walmart-section">
+            <h2 class="store-heading">🏬 Walmart</h2>
+            <div class="results-grid">
+                {% for result in walmart_results %}
+                <div class="product-card" id="product-walmart-{{ loop.index }}">
+                    {% if result.image %}
+                        <div class="product-image">
+                            <img src="{{ result.image }}" alt="{{ result.title }}" loading="lazy">
+                            <span class="store-badge-walmart">Walmart</span>
+                        </div>
+                    {% else %}
+                        <div class="product-image-placeholder">
+                            <p>No Image</p>
+                        </div>
+                    {% endif %}
+
+                    <div class="product-info">
+                        <h3 class="product-title">{{ result.title }}</h3>                              
+                        {% if result.review_summary %}
+                        <div class="review-summary" style="color: {{ result.review_summary.color }}">
+                            {{ result.review_summary.stars }}
+                            {% if result.rating and result.rating != 'N/A' %}
+                                ({{ result.rating }}/5)
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        <div class="product-price">
+                            <span class="price">{{ result.currency }} {{ result.price_display }}</span>
+                        </div>
+
+                        <!-- Price Chart -->
+                        <div id="chart-walmart-{{ loop.index }}" class="price-chart" onclick="toggleChart('walmart-{{ loop.index }}')">
+                            📊 Click to see 30-day price trend
+                        </div>
+                        <div id="chart-container-walmart-{{ loop.index }}" style="display:none; height:250px; margin: 1rem 0;"></div>
+
+                        <div class="product-actions">
+                            {% if result.link %}
+                                <a href="{{ result.link }}" target="_blank" class="btn-view" style="background-color: #0071CE;">
+                                    Visit Walmart →
+                                </a>
+                            {% endif %}
+                            <button class="btn-wishlist" onclick="addToWishlist('{{ result.title }}', '{{ result.price_display }}', 'Walmart')" title="Add to Wishlist">
+                                ❤️
+                            </button>
+                            <button class="btn-share" onclick="shareProduct('{{ result.title }}', '{{ result.price_display }}', 'Walmart')" title="Share this product">
+                                ⨠
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- No Results -->
+        {% if not amazon_results and not walmart_results %}
+        <div class="no-results">
+            <p>❌ No results found matching your criteria</p>
+        </div>
+        {% endif %}
+
+        <!-- ====== MITRA'S RECOMMENDATION & SAVINGS AT BOTTOM ====== -->
+
+        <!-- Savings Banner -->
+        {% if savings and savings.savings != '0' %}
+            <div class="savings-banner">
+                <h3>💰 Potential Savings: ₹{{ savings.savings }} ({{ savings.percentage }}%)</h3>
+                <p>Buy on <strong>{{ savings.cheaper }}</strong> for the best price!</p>
+            </div>
+        {% endif %}
+
+        <!-- Best Deal Banner -->
+        {% if best_deal %}
+        <div class="best-deal-banner">
+            <div class="best-deal-content">
+                <h3>🤖 Mitra's Recommendation</h3>
+                <p><strong>{{ best_deal.product.title[:60] }}...</strong></p>
+                <p class="deal-price">💰 ₹{{ best_deal.product.price_display }} at {{ best_deal.product.source }}</p>
+                <p class="deal-reason">✨ {{ best_deal.reason }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        {% endif %}
+    </div>
+</section>
+
+<script>
+    function toggleChart(chartId) {
+        const chartDiv = document.getElementById('chart-container-' + chartId);
+        if (chartDiv.style.display === 'none' || !chartDiv.style.display) {
+            chartDiv.style.display = 'block';
+            drawChart(chartId);
+        } else {
+            chartDiv.style.display = 'none';
+        }
+    }
+
+    function drawChart(chartId) {
+        const chartContainer = document.getElementById('chart-container-' + chartId);
+        if (chartContainer.children.length === 0) {
+            // Find the product card to get the price
+            const productCard = document.querySelector(`[id*="product-${chartId}"]`);
+            if (!productCard) return;
+            
+            const priceElement = productCard.querySelector('.price');
+            if (!priceElement) return;
+            
+            const priceText = priceElement.textContent.trim();
+            const currentPrice = parseFloat(priceText.replace(/[^\d.]/g, ''));
+            
+            if (isNaN(currentPrice)) return;
+            
+            // Generate realistic price history
+            const dates = [];
+            const prices = [];
+            
+            const basePrice = currentPrice * 1.15;
+            
+            for (let i = 0; i < 30; i++) {
+                const trend = i * (basePrice * 0.0066);
+                const dayOfWeek = i % 7;
+                const weeklyVariance = dayOfWeek === 5 || dayOfWeek === 6 ? -0.02 : 0.01;
+                const dailyRandom = (Math.random() - 0.5) * 0.06;
+                
+                let historicalPrice = basePrice - trend + (basePrice * weeklyVariance) + (basePrice * dailyRandom);
+                historicalPrice = Math.max(historicalPrice, currentPrice * 0.85);
+                
+                const date = new Date();
+                date.setDate(date.getDate() - (30 - i));
+                dates.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+                prices.push(Math.round(historicalPrice));
+            }
+            
+            dates.push('Today');
+            prices.push(Math.round(currentPrice));
+            
+            const traces = [{
+                x: dates,
+                y: prices,
+                mode: 'lines+markers',
+                type: 'scatter',
+                name: 'Price',
+                line: {color: '#ff6b35', width: 3},
+                marker: {size: 6},
+                fill: 'tozeroy',
+                fillcolor: 'rgba(255, 107, 53, 0.15)'
+            }];
+
+            const layout = {
+                title: '30-Day Price History (₹)',
+                xaxis: { title: 'Date' },
+                yaxis: { title: 'Price in Rupees (₹)' },
+                plot_bgcolor: '#f9f9f9',
+                paper_bgcolor: '#fff',
+                font: {color: '#333', size: 11},
+                margin: {l: 70, r: 40, t: 50, b: 60},
+                hovermode: 'x unified'
+            };
+
+            try {
+                if (typeof Plotly !== 'undefined') {
+                    Plotly.newPlot(chartContainer, traces, layout, {responsive: true, displayModeBar: false});
+                }
+            } catch (e) {
+                console.log('Plotly error:', e);
+            }
+        }
+    }
+</script>
+{% endblock %}

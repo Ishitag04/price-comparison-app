@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Price Comparison{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <h2>Welcome, {{ user }}! 👋</h2>
+        <p>Find the best deals between Amazon India and Walmart</p>
+        
+        <form method="POST" action="/search" class="search-form">
+            <input type="hidden" name="user" value="{{ user }}">
+            <input 
+                type="text" 
+                name="product" 
+                id="product-search"
+                placeholder="Search for iPhone, Laptop, Headphones, etc..." 
+                required
+                autofocus
+            >
+            <button type="submit" class="btn-search">🔍 Compare Prices</button>
+        </form>
+
+        <div id="search-history-container"></div>
+    </div>
+</section>
+
+<section class="features" id="about">
+    <div class="container">
+        <h3>✨ Why Use Price Compare?</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>💰 Real Savings</h4>
+                <p>See exact savings between stores</p>
+            </div>
+            <div class="feature-card">
+                <h4>📊 Price History</h4>
+                <p>30-day price trend charts</p>
+            </div>
+            <div class="feature-card">
+                <h4>⭐ Quality Assured</h4>
+                <p>Products with high ratings only</p>
+            </div>
+            <div class="feature-card">
+                <h4>🤖 Smart Recommendations</h4>
+                <p>Mitra's best deal picks</p>
+            </div>
+            <div class="feature-card">
+                <h4>❤️ Save Favorites</h4>
+                <p>Wishlist and compare anytime</p>
+            </div>
+        </div>
+
+        <div class="stores-section">
+            <h3>🏪 Compare Top Stores</h3>
+            <div class="stores-grid">
+                <div class="store-card amazon">
+                    <h4>🛒 Amazon India</h4>
+                    <p>Largest e-commerce in India</p>
+                    <small>Prices in ₹ (Indian Rupees)</small>
+                </div>
+                <div class="store-card walmart">
+                    <h4>🏬 Walmart USA</h4>
+                    <p>World's largest retailer</p>
+                    <small>Converted from USD to ₹</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

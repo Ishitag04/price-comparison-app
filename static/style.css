@@ -1,0 +1,997 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ============ NAVBAR ============ */
+.navbar {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.3s;
+}
+
+.nav-links a:hover {
+    opacity: 0.8;
+}
+
+.user-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.btn-logout {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn-logout:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-dark-mode {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+}
+
+.btn-dark-mode:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+/* ============ HERO SECTION ============ */
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.walmart-section {
+    margin-top: 3rem;  /* Adds 48px space above Walmart section */
+}
+
+/* ============ SEARCH FORM ============ */
+.search-form {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 600px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.search-form input {
+    flex: 1;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    min-width: 250px;
+}
+
+.search-form input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.btn-search {
+    padding: 1rem 2rem;
+    background-color: #ff3535;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-search:hover {
+    background-color: #ff5722;
+}
+
+/* ============ SEARCH HISTORY ============ */
+#search-history-container {
+    margin-top: 1.5rem;
+}
+
+.search-history {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 5px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-history h4 {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.search-history button {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.5rem 1rem;
+    margin: 0.25rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.search-history button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ============ SEARCH FORM SMALL ============ */
+.search-form-small {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.search-form-small input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.95rem;
+}
+
+/* ============ BACK BUTTON ============ */
+.back-search {
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.btn-back {
+    padding: 0.75rem 1.5rem;
+    background-color: #121212d7;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.btn-back:hover {
+    background-color: #5a6268;
+}
+
+/* ============ FEATURES SECTION ============ */
+.features {
+    padding: 4rem 0;
+    background-color: white;
+}
+
+.features h3 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.feature-card {
+    text-align: center;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card h4 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: #ff3535;
+}
+
+/* ============ STORES SECTION ============ */
+.stores-section {
+    background-color: #f5f5f5;
+    padding: 3rem 0;
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+.stores-section h3 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.stores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.store-card {
+    padding: 2rem;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.store-card:hover {
+    transform: translateY(-5px);
+}
+
+.store-card.amazon {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.store-card.walmart {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.store-card h4 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.store-card small {
+    opacity: 0.9;
+    font-size: 0.85rem;
+}
+
+/* ============ RESULTS SECTION ============ */
+.results-section {
+    padding: 2rem 0;
+}
+
+.results-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.results-header h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ============ FILTERS SECTION ============ */
+.filters-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.filters-form {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.filter-group label {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.filter-group select {
+    padding: 0.75rem 1rem;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.filter-group select:focus {
+    outline: none;
+    border-color: #ff6b35;
+}
+
+/* ============ BEST DEAL BANNER ============ */
+.best-deal-banner {
+    background: linear-gradient(135deg, #1a1a2e 0%, #1a1a2e 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.best-deal-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.deal-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+}
+
+.deal-reason {
+    opacity: 0.9;
+}
+
+/* ============ SAVINGS BANNER ============ */
+.savings-banner {
+    background: linear-gradient(135deg, #16213e 0%, #16213e 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.savings-banner h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ============ ERROR MESSAGE ============ */
+.error-message {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+/* ============ ALL RESULTS SECTION ============ */
+.all-results-section {
+    margin-bottom: 3rem;
+}
+
+.all-results-section h3 {
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+}
+
+/* ============ RESULTS GRID ============ */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* ============ PRODUCT CARD ============ */
+.product-card {
+    padding: 1rem 1rem;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 2px solid #e0e0e0;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.store-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #FF9900;;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.store-badge-walmart {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #0071CE;;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.product-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e9ecef;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.product-info {
+    padding: 0.5rem 0;
+}
+
+.condition-badge {
+    display: inline-block;
+    background-color: #d4edda;
+    color: #155724;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.product-title {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    color: #333;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.8rem;
+}
+
+.review-summary {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+}
+
+.stock-status {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin: 0.5rem 0;
+    display: inline-block;
+}
+
+.product-price {
+    margin: 1.2rem 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.price {
+    color: #ff6b35;
+}
+
+/* ============ PRICE CHART ============ */
+.price-chart {
+    background-color: #f0f0f0;
+    padding: 0.8rem;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #666;
+    transition: all 0.3s;
+    margin: 0.5rem 0;
+}
+
+.price-chart:hover {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+/* ============ PRODUCT ACTIONS ============ */
+.product-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.btn-view {
+    flex: 1;
+    padding: 0.75rem;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 600;
+    transition: opacity 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-view:hover {
+    opacity: 0.9;
+}
+
+.btn-wishlist,
+.btn-share {
+    padding: 0.75rem;
+    background-color: #f0f0f0;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+}
+
+.btn-wishlist:hover {
+    background-color: #ff6b6b;
+    border-color: #ff6b6b;
+    color: white;
+    transform: scale(1.1);
+}
+
+.btn-wishlist.wishlisted {
+    background-color: #ff6b6b;
+    border-color: #ff6b6b;
+}
+
+.btn-share:hover {
+    background-color: #25d366;
+    border-color: #25d366;
+    color: white;
+    transform: scale(1.1);
+}
+
+/* ============ NO RESULTS ============ */
+.no-results {
+    text-align: center;
+    padding: 3rem;
+    background: white;
+    border-radius: 10px;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 3rem;
+    background: white;
+    border-radius: 10px;
+    color: #666;
+}
+
+.empty-message h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* ============ FOOTER ============ */
+footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 4rem;
+}
+
+/* ============ DARK MODE ============ */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .features {
+    background-color: #222;
+}
+
+body.dark-mode .feature-card {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .stores-section {
+    background-color: #222;
+}
+
+body.dark-mode .filters-section,
+body.dark-mode .store-results,
+body.dark-mode .product-card,
+body.dark-mode .empty-message,
+body.dark-mode .no-results {
+    background-color: #2a2a2a;
+    border-color: #444;
+    color: #e0e0e0;
+}
+
+body.dark-mode .product-title {
+    color: #e0e0e0;
+}
+
+body.dark-mode .search-form-small input {
+    background-color: #333;
+    color: #e0e0e0;
+    border-color: #555;
+}
+
+body.dark-mode .filter-group select {
+    background-color: #333;
+    color: #e0e0e0;
+    border-color: #555;
+}
+
+body.dark-mode .product-image-placeholder {
+    background-color: #333;
+}
+
+body.dark-mode .price-chart {
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+body.dark-mode .btn-wishlist,
+body.dark-mode .btn-share {
+    background-color: #444;
+    border-color: #555;
+    color: #e0e0e0;
+}
+
+/* ============ RESPONSIVE DESIGN ============ */
+@media (max-width: 768px) {
+    .hero h2 {
+        font-size: 1.8rem;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-form input,
+    .btn-search {
+        width: 100%;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-links {
+        gap: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .back-search {
+        flex-direction: column;
+    }
+
+    .search-form-small {
+        flex-direction: column;
+    }
+
+    .search-form-small input {
+        width: 100%;
+    }
+
+    .filters-form {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .filter-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-right {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .user-section {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h2 {
+        font-size: 1.4rem;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .logo h1 {
+        font-size: 1.3rem;
+    }
+
+    .product-actions {
+        flex-direction: column;
+    }
+
+    .btn-view {
+        width: 100%;
+    }
+}
+/* ============ SHARE MODAL ============ */
+
+.share-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.share-modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.share-modal-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.share-modal-content p {
+    text-align: center;
+    margin: 0.5rem 0;
+    color: #666;
+}
+
+.share-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ff6b35;
+}
+
+.share-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.share-btn {
+    padding: 1rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.whatsapp-share {
+    background-color: #25d366;
+    color: white;
+}
+
+.whatsapp-share:hover {
+    background-color: #20ba5a;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+}
+
+.email-share {
+    background-color: #ea4335;
+    color: white;
+}
+
+.email-share:hover {
+    background-color: #d33426;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(234, 67, 53, 0.4);
+}
+
+.twitter-share {
+    background-color: #1da1f2;
+    color: white;
+}
+
+.twitter-share:hover {
+    background-color: #1a91da;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(29, 161, 242, 0.4);
+}
+
+.facebook-share {
+    background-color: #1877f2;
+    color: white;
+}
+
+.facebook-share:hover {
+    background-color: #0a66c2;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(24, 119, 242, 0.4);
+}
+
+.copy-share {
+    background-color: #6c757d;
+    color: white;
+}
+
+.copy-share:hover {
+    background-color: #5a6268;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+}
+
+.close-modal {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.close-modal:hover {
+    background-color: #e0e0e0;
+}
+
+/* Dark Mode Support */
+body.dark-mode .share-modal-content {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .share-modal-content p {
+    color: #b0b0b0;
+}
+
+body.dark-mode .close-modal {
+    background-color: #444;
+    color: #e0e0e0;
+}
+
+body.dark-mode .close-modal:hover {
+    background-color: #555;
+}

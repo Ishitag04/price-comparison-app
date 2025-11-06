@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+{% block title %}My Wishlist - Price Compare{% endblock %}
+
+{% block content %}
+<section class="wishlist-section">
+    <div class="container">
+        <div class="wishlist-header">
+            <h2>❤️ My Wishlist</h2>
+            <p>Your saved products for comparison</p>
+            <button onclick="clearWishlist()" class="btn-clear-wishlist">🗑️ Clear All</button>
+        </div>
+
+        <div id="wishlist-container" class="wishlist-grid">
+            <!-- Wishlist items will be populated by JavaScript -->
+        </div>
+
+        <div id="empty-wishlist" class="empty-message" style="display: none;">
+            <h3>📭 Your Wishlist is Empty</h3>
+            <p>Start comparing prices to add items to your wishlist!</p>
+            <a href="/home?user={{ user }}" class="btn-search">🔍 Search Products</a>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        displayWishlist();
+    });
+
+    function displayWishlist() {
+        const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        const container = document.getElementById('wishlist-container');
+        const emptyMsg = document.getElementById('empty-wishlist');
+
+        if (wishlist.length === 0) {
+            container.style.display = 'none';
+            emptyMsg.style.display = 'block';
+            return;
+        }
+
+        container.style.display = 'grid';
+        emptyMsg.style.display = 'none';
+        container.innerHTML = '';
+
+        wishlist.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'wishlist-card wishlisted';
+            card.innerHTML = `
+                <div class="wishlist-item">
+                    <h3>${item.title}</h3>
+                    <p class="wishlist-price">💰 ₹${item.price}</p>
+                    <p class="wishlist-store">Store: ${item.store}</p>
+                    <p class="wishlist-date">Added: ${new Date(item.date).toLocaleDateString()}</p>
+                    <div class="wishlist-actions">
+                        <button onclick="removeFromWishlist(${index})" class="btn-remove">🗑️ Remove</button>
+                        <button onclick="shareWishlistItem('${item.title}', '${item.price}', '${item.store}')" class="btn-share">💬 Share</button>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function removeFromWishlist(index) {
+        let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        wishlist.splice(index, 1);
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        displayWishlist();
+    }
+
+    function clearWishlist() {
+        if (confirm('Are you sure you want to clear all wishlist items?')) {
+            localStorage.setItem('wishlist', '[]');
+            displayWishlist();
+        }
+    }
+
+    function shareWishlistItem(title, price, store) {
+        const text = `Check out ${title} for ₹${price} from ${store}! Found on Price Compare 💰`;
+        const whatsappURL = `https://wa.me/?text=${encodeURIComponent(text)}`;
+        window.open(whatsappURL, '_blank');
+    }
+</script>
+
+<style>
+    .wishlist-section {
+        padding: 2rem 0;
+        min-height: 80vh;
+    }
+
+    .wishlist-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .wishlist-header h2 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .btn-clear-wishlist {
+        padding: 0.75rem 1.5rem;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 600;
+        margin-top: 1rem;
+        transition: background-color 0.3s;
+    }
+
+    .btn-clear-wishlist:hover {
+        background-color: #c82333;
+    }
+
+    .wishlist-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .wishlist-card {
+        background: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s;
+        border: 2px solid #ddd;
+    }
+
+    .wishlist-card.wishlisted {
+        background: linear-gradient(135deg, #ffe0e0 0%, #fff5e0 100%);
+        border: 2px solid #ff6b35;
+        box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
+    }
+
+    .wishlist-item h3 {
+        color: #333;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+    }
+
+    .wishlist-price {
+        font-size: 1.3rem;
+        color: #ff6b35;
+        font-weight: 700;
+        margin: 0.5rem 0;
+    }
+
+    .wishlist-store {
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    .wishlist-date {
+        color: #999;
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+    }
+
+    .wishlist-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .btn-remove, .btn-share {
+        flex: 1;
+        padding: 0.5rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+
+    .btn-remove {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-remove:hover {
+        background-color: #c82333;
+    }
+
+    .btn-share {
+        background-color: #25d366;
+        color: white;
+    }
+
+    .btn-share:hover {
+        background-color: #1fad54;
+    }
+
+    .empty-message {
+        text-align: center;
+        padding: 3rem;
+        background: white;
+        border-radius: 10px;
+    }
+
+    .empty-message h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .dark-mode .wishlist-card {
+        background-color: #333;
+        border-color: #555;
+        color: #e0e0e0;
+    }
+
+    .dark-mode .wishlist-card.wishlisted {
+        background: linear-gradient(135deg, #5a3a3a 0%, #5a5a3a 100%);
+    }
+
+    .dark-mode .wishlist-item h3 {
+        color: #e0e0e0;
+    }
+
+    .dark-mode .empty-message {
+        background-color: #2a2a2a;
+        color: #e0e0e0;
+    }
+</style>
+{% endblock %}

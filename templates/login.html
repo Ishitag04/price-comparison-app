@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Price Compare</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        
+        .login-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .login-box h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+        
+        .login-box .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff6b35;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 1rem;
+            background-color: #ff6b35;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-login:hover {
+            background-color: #ff5722;
+        }
+        
+        .guest-login {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .guest-login a {
+            color: #ff6b35;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .guest-login a:hover {
+            text-decoration: underline;
+        }
+
+        .dark-mode .login-box {
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+        }
+
+        .dark-mode .login-box h1 {
+            color: #e0e0e0;
+        }
+
+        .dark-mode .form-group label {
+            color: #e0e0e0;
+        }
+
+        .dark-mode .form-group input {
+            background-color: #333;
+            color: #e0e0e0;
+            border-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h1>💰 Price Compare</h1>
+            <p class="subtitle">Find the best deals instantly</p>
+            
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">Your Name</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username"
+                        placeholder="Enter your name"
+                        required
+                    >
+                </div>
+                
+                <button type="submit" class="btn-login">🚀 Continue</button>
+            </form>
+            
+            <div class="guest-login">
+                <p>or <a href="#" onclick="loginAsGuest()">Continue as Guest</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            if (username) {
+                localStorage.setItem('user', username);
+                localStorage.setItem('login_time', new Date().toISOString());
+                window.location.href = `/home?user=${encodeURIComponent(username)}`;
+            }
+        }
+
+        function loginAsGuest() {
+            const guestName = 'Guest_' + Math.random().toString(36).substr(2, 9).toUpperCase();
+            localStorage.setItem('user', guestName);
+            localStorage.setItem('login_time', new Date().toISOString());
+            window.location.href = `/home?user=${encodeURIComponent(guestName)}`;
+        }
+
+        // Load dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</body>
+</html>
