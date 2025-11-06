@@ -98,7 +98,7 @@ MIT License - feel free to use this project for personal or commercial purposes.
 
 ## Author
 
-Built with ❤️ for InnoTech by [Your Name]
+Built with ❤️ for InnoTech
 
 ## Support
 
