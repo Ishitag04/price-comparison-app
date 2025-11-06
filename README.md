@@ -92,10 +92,6 @@ Higher rating = higher score, Lower price = higher score
 
 Feel free to fork this project and submit pull requests for improvements!
 
-## License
-
-MIT License - feel free to use this project for personal or commercial purposes.
-
 ## Author
 
 Built with ❤️ for InnoTech
@@ -105,5 +101,3 @@ Built with ❤️ for InnoTech
 For issues or questions, open an issue on GitHub.
 
 ---
-
-**Made for comparison, not competition!** 💚
